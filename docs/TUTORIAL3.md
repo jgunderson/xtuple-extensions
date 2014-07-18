@@ -109,51 +109,81 @@ When you refresh the browser you'll see this privilege in the `UserAccount` work
 We recommend you use automated testing to ensure that your code does what you want, and to make sure that you're not
 breaking anything else inadvertantly.
 
-We use mocha for unit and integration testing, and you should run your ice cream model through a simple CRUD test to make sure that you haven't made any mistakes in the ORM code, and that you've set the `idAttribute` appropriately on the model. In general we recommend that you do this immediately after writing the model, before you write any views.
+We use mocha for unit and integration testing, and you should test your ice cream flavor model through our general-purpose business object testing tool to make sure that your code does what you expect it to do, and that if anyone changes anything in the app that breaks the behavior you desire, they'll be unable to merge that breaking change into our code base.
 
-To get your testing environment set up, you'll want to refer to [testing documentation](https://github.com/xtuple/xtuple/wiki/Testing-Setup). Make sure that you can run all the tests in the core `xtuple` directory. Once you can do that, then putting the `IceCream` model under test should follow the same process as our other objects. Enter the following code into the file `/path/to/xtuple-extensions/source/icecream/test/ice_cream_flavor.js`:
+To get your testing environment set up, you'll want to refer to [testing documentation](https://github.com/xtuple/xtuple/wiki/Testing-Setup). Make sure that you can run all the tests in the core `xtuple` directory. Once you can do that, then putting the `IceCream` model under test should follow the same process as our other objects. Enter the following code into the file `/path/to/xtuple-extensions/test/icecream/spec/ice_cream_flavor.js` (making those subdirectories as needed):
 
 ```javascript
-  var crud = require("../../../../xtuple/test/mocha/lib/crud"),
-    data = {
-      recordType: "XM.IceCreamFlavor",
-      autoTestAttributes: true,
-      createHash: {
-        name: "VANILLA" + Math.random(),
-        calories: 1200
-      },
-      updateHash: {
-        calories: 1400
-      }
-    };
+(function () {
+  "use strict";
 
-  describe('Ice cream flavor crud test', function () {
-    crud.runAllCrud(data);
-  });
+  var assert = require("chai").assert;
+
+  var spec = {
+    recordType: "XM.IceCreamFlavor",
+    collectionType: "XM.IceCreamFlavorCollection",
+    cacheName: "XM.iceCreamFlavors",
+    listKind: "XV.IceCreamFlavorList",
+    instanceOf: "XM.Document",
+    isLockable: true,
+    idAttribute: "name",
+    enforceUpperKey: true,
+    attributes: ["name", "description", "calories"],
+    extensions: ["icecream"],
+    createHash: {
+      name: "VANILLA" + Math.random(),
+      calories: 1200
+    },
+    updateHash: {
+      calories: 1400
+    },
+    privileges: {
+      createUpdateDelete: "MaintainIceCreamFlavors",
+      read: true
+    }
+  };
+  var additionalTests = function () {
+    describe("Ice cream flavor business logic", function () {
+      var model;
+
+      before(function (done) {
+        model = new XM.IceCreamFlavor();
+        model.once("status:READY_NEW", function () {
+          done();
+        });
+        model.initialize(null, {isNew: true});
+      });
+      it("should update the description to and from LITE", function () {
+        model.set({name: "VANILLA"});
+        assert.equal(model.get("name").substring(0, 7), "VANILLA");
+        model.set("calories", 200);
+        assert.equal(model.get("name").substring(0, 7), "LITE VA");
+        model.set("calories", 1200);
+        assert.equal(model.get("name").substring(0, 7), "VANILLA");
+      });
+    });
+  };
+
+  exports.spec = spec;
+  exports.additionalTests = additionalTests;
+}());
 ```
 
-You can run the test based on the typical mocha command.
+These tests will now be automatically run by the xTuple test runner.
 
 ```bash
 cd /path/to/xtuple-extensions
-mocha source/icecream/test/ice_cream_flavor.js
+npm run-script test
 ```
 
-The tests for the business logic can be achieved by putting the following function in your data object in `/path/to/xtuple-extensions/source/icecream/test/ice_cream_flavor.js`:
+If you want to test this one business object in isolation you can use:
 
-```javascript
-beforeDeleteActions: [{it: "should update the description to and from LITE", action: function (data, done) {
-  var model = data.model;
-  assert.equal(model.get("name").substring(0, 7), "VANILLA");
-  model.set("calories", 200);
-  assert.equal(model.get("name").substring(0, 7), "LITE VA");
-  model.set("calories", 1200);
-  assert.equal(model.get("name").substring(0, 7), "VANILLA");
-}}]
+```bash
+cd /path/to/xtuple-extensions
+./node_modules/.bin/mocha -R spec -g XM.IceCreamFlavor test/lib/test_runner.js
 ```
 
-It always also a good idea to re-run the core tests as described the testing document before you submit a pull request,
-to make sure that you haven't disrupted any of the existing functionality.
+We have set up TravisCI to run the entire test suite before any code gets committed into our master source. If you've set up TravisCI on your fork, then you can take advantage of the same tool merely by pushing your committed code to your repository. TravisCI will let you know if you've broken anything.
 
 ### Declaring the Version Number
 
@@ -162,7 +192,7 @@ One last thing we should do is to declare the version number for the client. We 
 ```javascript
 XT.extensions.icecream = {
   setVersion: function () {
-    XT.setVersion("1.5.0", "iceCream");
+    XT.setVersion("1.8.0", "iceCream");
   }
 };
 ```

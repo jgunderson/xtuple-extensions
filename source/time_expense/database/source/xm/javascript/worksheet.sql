@@ -96,7 +96,7 @@ select xt.install_js('XM','Worksheet','xtte', $$
       if (options.taskId ) {
         res = data.retrieveRecord({
           nameSpace: "XM",
-          type: "Task",
+          type: "ProjectTask",
           id: options.taskId,
           superUser: true
         });

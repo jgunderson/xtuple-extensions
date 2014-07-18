@@ -125,44 +125,7 @@ white:true*/
       }
 
     });
-    
-    // ..........................................................
-    // TASK
-    //
-    
-    var _tProto = XM.Task.prototype,
-      _tBindEvents = _tProto.bindEvents,
-      _tStatusDidChange = _tProto.statusDidChange;
-    
-    XM.Task = XM.Task.extend({
 
-      bindEvents: function () {
-        _tBindEvents.apply(this, arguments);
-        this.on("change:isSpecifiedRate", this.isSpecifiedRateDidChange);
-      },
-
-      isSpecifiedRateDidChange: function () {
-        var spec = this.get("isSpecifiedRate");
-        if (spec) {
-          this.set("billingRate", 0);
-          this.set("billingCurrency", XT.baseCurrency());
-        } else {
-          this.set("billingRate", null);
-          this.set("billingCurrency", null);
-        }
-        _specifiedSetReadOnly.apply(this);
-      },
-
-      statusDidChange: function () {
-        _tStatusDidChange.apply(this, arguments);
-        var K = XM.Model,
-          status = this.getStatus();
-        if (status === K.READY_NEW || status === K.READY_CLEAN) {
-          _specifiedSetReadOnly.apply(this);
-        }
-      }
-
-    });
 
     /**
       @class

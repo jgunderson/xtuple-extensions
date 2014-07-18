@@ -1,0 +1,1 @@
+select xt.register_extension('bi_open', 'Business Intelligence', '/xtuple-extensions', '', 999);

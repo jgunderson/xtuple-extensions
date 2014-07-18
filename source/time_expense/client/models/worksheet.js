@@ -269,51 +269,8 @@ white:true*/
       isTime: false,
 
       billableDidChange: function () {
-        var billable = this.get("billable"),
-          worksheet = this.getParent(),
-          task =  this.get("task"),
-          project = task ? task.get("project") : undefined,
-          employee = worksheet ? worksheet.get("employee") : undefined,
-          customer = this.get("customer"),
-          item = this.get("item"),
-          that = this,
-          options = {isJSON: true},
-          params,
-          i;
+        var billable = this.get("billable");
         this.setReadOnly("billingRate", !billable);
-        if (!XT.session.privileges.get("CanViewRates")) { return; }
-
-        // Keep track of requests, we'll ignore stale ones
-        this._counter = _.isNumber(this._counter) ? this._counter + 1 : 0;
-        i = this._counter;
-
-        if (billable) {
-          params = {
-            isTime: this.isTime,
-            taskId: task ? task.id : undefined,
-            projectId: project ? project.id : undefined,
-            employeeId: employee ? employee.id : undefined,
-            customerId: customer ? customer.id : undefined,
-            itemId: item ? item.id : undefined
-          };
-
-          options.success = function (resp) {
-            var data = {};
-            if (i < that._counter) { return; }
-            that.off("change:" + that.ratioKey, that.detailDidChange);
-            data[that.ratioKey] = resp.rate;
-            data.billingCurrency = resp.currency || XT.baseCurrency();
-            that.set(data);
-            that.on("change:" + that.ratioKey, that.detailDidChange);
-            that.detailDidChange();
-          };
-          this.dispatch("XM.Worksheet", "getBillingRate", params, options);
-        } else {
-          this.off("change:" + this.ratioKey, this.detailDidChange);
-          this.set(this.ratioKey, 0);
-          this.on("change:" + this.ratioKey, this.detailDidChange);
-          this.detailDidChange();
-        }
       },
 
       bindEvents: function () {
@@ -450,6 +407,54 @@ white:true*/
       ratioKey: "billingRate",
 
       totalsMethod: "calculateHours",
+      
+      billableDidChange: function () {
+        var billable = this.get("billable"),
+          worksheet = this.getParent(),
+          task =  this.get("task"),
+          project = task ? task.get("project") : undefined,
+          employee = worksheet ? worksheet.get("employee") : undefined,
+          customer = this.get("customer"),
+          item = this.get("item"),
+          that = this,
+          options = {isJSON: true},
+          params,
+          i;
+        this.setReadOnly("billingRate", !billable);
+        if (!XT.session.privileges.get("CanViewRates")) { return; }
+
+        // Keep track of requests, we'll ignore stale ones
+        this._counter = _.isNumber(this._counter) ? this._counter + 1 : 0;
+        i = this._counter;
+
+        if (billable) {
+          params = {
+            isTime: this.isTime,
+            taskId: task ? task.id : undefined,
+            projectId: project ? project.id : undefined,
+            employeeId: employee ? employee.id : undefined,
+            customerId: customer ? customer.id : undefined,
+            itemId: item ? item.id : undefined
+          };
+
+          options.success = function (resp) {
+            var data = {};
+            if (i < that._counter) { return; }
+            that.off("change:" + that.ratioKey, that.detailDidChange);
+            data[that.ratioKey] = resp.rate;
+            data.billingCurrency = resp.currency || XT.baseCurrency();
+            that.set(data);
+            that.on("change:" + that.ratioKey, that.detailDidChange);
+            that.detailDidChange();
+          };
+          this.dispatch("XM.Worksheet", "getBillingRate", params, options);
+        } else {
+          this.off("change:" + this.ratioKey, this.detailDidChange);
+          this.set(this.ratioKey, 0);
+          this.on("change:" + this.ratioKey, this.detailDidChange);
+          this.detailDidChange();
+        }
+      },
 
       bindEvents: function () {
         XM.WorksheetDetail.prototype.bindEvents.apply(this, arguments);

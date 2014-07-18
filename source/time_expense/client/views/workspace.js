@@ -1,4 +1,4 @@
-/*jshint bitwise:true, indent:2, curly:true eqeqeq:true, immed:true,
+/*jshint bitwise:true, indent:2, curly:true, eqeqeq:true, immed:true,
 latedef:true, newcap:true, noarg:true, regexp:true, undef:true, trailing:true, white:true*/
 /*global XT:true, XM:true, XV:true, enyo:true*/
 
@@ -58,7 +58,7 @@ latedef:true, newcap:true, noarg:true, regexp:true, undef:true, trailing:true, w
     XV.appendExtension("XV.ProjectWorkspace", projectExtensions);
 
     // ..........................................................
-    // TASK
+    // PROJECT TASK
     //
 
     var taskExtensions = [
@@ -77,7 +77,7 @@ latedef:true, newcap:true, noarg:true, regexp:true, undef:true, trailing:true, w
        label: "_rate".loc() }
     ];
 
-    XV.appendExtension("XV.TaskWorkspace", taskExtensions);
+    XV.appendExtension("XV.ProjectTaskWorkspace", taskExtensions);
 
     // ..........................................................
     // EMPLOYEE

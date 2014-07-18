@@ -1,12 +1,12 @@
-/*jshint bitwise:true, indent:2, curly:true eqeqeq:true, immed:true,
+/*jshint bitwise:true, indent:2, curly:true, eqeqeq:true, immed:true,
 latedef:true, newcap:true, noarg:true, regexp:true, undef:true,
-trailing:true white:true*/
+trailing:true, white:true*/
 /*global XT:true, XV:true, enyo:true, Globalize:true */
 
 (function () {
-  
+
   XT.extensions.timeExpense.initListRelations = function () {
-    
+
     // ..........................................................
     // WORKSHEET
     //
@@ -48,7 +48,7 @@ trailing:true white:true*/
         return projectNumber + ' - ' + taskNumber;
       }
     });
-    
+
     enyo.kind({
       name: "XV.WorksheetExpenseListRelations",
       kind: "XV.WorksheetTimeListRelations",
@@ -81,7 +81,7 @@ trailing:true white:true*/
         return Globalize.format(value, "n" + 2);
       }
     });
-    
+
   };
 
 }());

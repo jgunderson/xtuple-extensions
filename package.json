@@ -3,7 +3,7 @@
   "author": "xTuple <dev@xtuple.com>",
   "name": "xtuple",
   "description": "xTuple Enterprise Resource Planning Mobile-Web client public extensions",
-  "version": "1.7.0",
+  "version": "4.5.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/xtuple/xtuple-extensions.git"
@@ -12,7 +12,7 @@
     "async":"0.2.x",
     "rimraf":"2.1.x",
     "underscore":"1.4.x",
-    "ursa":"0.8.x"
+    "xmla4js": "git://github.com/rpbouman/xmla4js.git"
   },
   "devDependencies": {
     "chai":"1.5.x",
@@ -24,5 +24,9 @@
   "engines": {
     "node": "0.8.x"
   },
-  "scripts": {}
+  "scripts": {
+    "test-build": "./node_modules/.bin/mocha -R spec test/build/build_app.js",
+    "test": "./node_modules/.bin/mocha -R spec test/lib/test_runner.js",
+    "test-bi_open": "cd ../xtuple/node-datasource; ../node_modules/.bin/mocha -t 5000 -R spec ../../xtuple-extensions/test/routes/routebi/*"
+  }
 }

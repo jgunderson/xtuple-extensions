@@ -1,0 +1,107 @@
+[
+  {
+    "context": "xtuple",
+    "nameSpace": "XM",
+    "type": "UserBiChart",
+    "table": "bi_open.usrbichart",
+    "idSequenceName": "bi_open.usrbichart_usrbichart_id_seq",
+    "comment": "User Chart Map",
+    "privileges": {
+      "all": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true
+      }
+    },
+    "properties": [
+      {
+        "name": "id",
+        "attr": {
+          "type": "Number",
+          "column": "usrbichart_id",
+          "isPrimaryKey": true
+        }
+      },
+      {
+        "name": "uuid",
+        "attr": {
+          "type": "String",
+          "column": "obj_uuid",
+          "isNaturalKey": true
+        }
+      },
+      {
+        "name": "order",
+        "attr": {
+          "type": "Number",
+          "column": "usrbichart_order"
+        }
+      },
+      {
+        "name": "chartname",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_chart"
+        }
+      },
+      {
+        "name": "username",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_usr_username"
+        }
+      },
+      {
+        "name": "extension",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_ext_name"
+        }
+      },
+      {
+        "name": "filter",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_filter_option"
+        }
+      },
+      {
+        "name": "groupBy",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_groupby_option"
+        }
+      },
+      {
+        "name": "measure",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_measure"
+        }
+      },
+      {
+        "name": "chartType",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_charttype"
+        }
+      },
+      {
+        "name": "dimension",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_dimension"
+        }
+      },     
+      {
+        "name": "uuidFilter",
+        "attr": {
+          "type": "String",
+          "column": "usrbichart_uuid_filter"
+        }
+      }  
+    ],
+    "isSystem": true
+  }
+]

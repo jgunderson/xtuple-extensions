@@ -1,6 +1,6 @@
 {
   "name": "icecream",
-  "version": "1.4.1",
+  "version": "1.8.0",
   "comment": "Ice Cream extension",
   "loadOrder": 999,
   "dependencies": ["crm"],
@@ -8,7 +8,6 @@
     "create_ic_schema.sql",
     "icflav.sql",
     "priv.sql",
-    "cntcticflav.sql",
-    "register.sql"
+    "cntcticflav.sql"
   ]
 }
