@@ -8,9 +8,6 @@ XT.extensions.bi_open.initPostbooks = function () {
   var panelsCrmDash = [
       {name: "crmBiDashboard", kind: "XV.CrmBiDashboard"},
     ],
-    //salesMaps = [
-    //  {name: "salesBiMapboard", kind: "XV.SalesBiMapboard"}
-    //],
     dashboardModule = {
       name: "welcomeDashboard",
       hasSubmenu: false,
@@ -47,7 +44,6 @@ XT.extensions.bi_open.initPostbooks = function () {
     ];
 
   XT.app.$.postbooks.appendPanels("crm", panelsCrmDash, true);
-  //XT.app.$.postbooks.appendPanels("sales", salesMaps);
   XT.app.$.postbooks.insertModule(dashboardModule, 0);
   // Add chart actions to global XT.chartActions that we set up in core.js
   XT.chartActions.push.apply(XT.chartActions, chartActions);

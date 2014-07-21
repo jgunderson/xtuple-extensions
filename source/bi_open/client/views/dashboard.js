@@ -153,8 +153,7 @@ trailing:true, white:true*/
       }
     },
     create: function () {
-      var that = this,
-        actionOK = true;
+      var that = this;
       this.inherited(arguments);
       this.collectionChanged();
       
@@ -182,18 +181,10 @@ trailing:true, white:true*/
       if (parameters) {
         this.getQuery().parameters = parameters.parameters.concat(parameters);
       }
-      // Set up new actions based on global chartActions that are set up when extensions load.  
-      // Only add if privilege is correct.
-      this.newActions = [];
-      _.each(XT.chartActions, function (action) {
-        actionOK = true;
-        _.each(action.privileges, function (privilege) {
-          actionOK = XT.session.privileges.attributes[privilege] === true ? actionOK : false;
-        });
-        if (actionOK) {
-          that.newActions.push(action);
-        }
-      });
+      
+      // Set up new actions. Implementer must define
+      this.setupNewActions();
+      
     },
     /**
      Get the list of applicable charts from the database
@@ -316,6 +307,22 @@ trailing:true, white:true*/
       maxColWidth: 520,
       newActions: [],
     },
+    setupNewActions: function () {
+      // Set up new actions based on global chartActions that are defined when extensions load.  
+      // Only add if privilege is correct.
+      var actionOK = true,
+        that = this;
+      this.newActions = [];
+      _.each(XT.chartActions, function (action) {
+        actionOK = true;
+        _.each(action.privileges, function (privilege) {
+          actionOK = XT.session.privileges.attributes[privilege] === true ? actionOK : false;
+        });
+        if (actionOK) {
+          that.newActions.push(action);
+        }
+      });
+    }
   });
   
   /**
@@ -341,6 +348,22 @@ trailing:true, white:true*/
         {name: "bookingsMapTrailing", label: "_bookingsMapTrailing".loc(), item: "XV.Period12BookingsMapChart", privileges: ["ViewSalesOrders"]},
       ],
     },
+    setupNewActions: function () {
+      // Set up new actions based on global mapActions that are defined when extensions load.  
+      // Only add if privilege is correct.
+      var actionOK = true,
+        that = this;
+      this.newActions = [];
+      _.each(XT.mapActions, function (action) {
+        actionOK = true;
+        _.each(action.privileges, function (privilege) {
+          actionOK = XT.session.privileges.attributes[privilege] === true ? actionOK : false;
+        });
+        if (actionOK) {
+          that.newActions.push(action);
+        }
+      });
+    }
   });
 
 
