@@ -231,9 +231,10 @@ trailing:true, white:true*/
             var markers = cluster.getAllChildMarkers(),
               n = 0;
             for (var i = 0; i < markers.length; i++) {
-              n += markers[i].number;
+              n += Number(markers[i].number);
             }
-            return L.divIcon({ html: n, className: 'mycluster', iconSize: L.point(40, 40) });
+            n = Math.round(n);
+            return L.divIcon({ html: n, className: 'map-cluster', iconSize: L.point(40, 40) });
           },
           //Disable all of the defaults:
           spiderfyOnMaxZoom: false,
@@ -265,7 +266,7 @@ trailing:true, white:true*/
         //var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
         var osm = new L.TileLayer(osmUrl, {minZoom: 1, maxZoom: 50, id: 'examples.map-i86knfo3'});
       
-        this.getTheMap().setView(new L.LatLng(36, -76), 9);
+        this.getTheMap().setView(new L.LatLng(36, -76), 5);
         this.getTheMap().addLayer(osm);
         
         _.each(this.getProcessedData()[0].values, function (value) {
@@ -276,8 +277,8 @@ trailing:true, white:true*/
           //             "<b>" + value.measure + "</br>");
        
           var m = L.marker([value.latitude, value.longitude], { title: value.measure });
-          //m.number = value.measure;
-          m.number = 10;          
+          m.number = value.measure || 0;
+          //m.number = 10;          
           markers.addLayer(m);
         });
         

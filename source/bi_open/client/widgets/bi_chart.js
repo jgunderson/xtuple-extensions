@@ -189,6 +189,7 @@ trailing:true, white:true*/
           options.success = function (model, resp, options) {
             // We have a save! Great! Now we can do something
             // else in here if we so desire.
+            var m = model;
           };
           model.save(null, options);
         },
