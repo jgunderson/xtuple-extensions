@@ -1,0 +1,1 @@
+enyo.depends(    "widgets",    "core.js",    "postbooks.js"  );
