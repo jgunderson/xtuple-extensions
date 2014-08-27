@@ -215,8 +215,8 @@ trailing:true, white:true*/
       Set chart plot size using max sizes from dashboard.
      */
     setPlotSize: function (maxHeight, maxWidth) {
-      this.setPlotWidth(Number(maxWidth) - 100);
-      this.setPlotHeight(Number(maxHeight) - 196);
+      this.setPlotWidth(Number(maxWidth) - 40);
+      this.setPlotHeight(Number(maxHeight) - 80);
     },
     /**
       Create chart plot area.  Destroy if already created.
@@ -229,7 +229,7 @@ trailing:true, white:true*/
           {name: "svg",
             tag: this.getChartTag(),
             content: " ",
-            attributes: {width: this.getMaxWidth() - 40, height: this.getMaxHeight() - 80}
+            attributes: {width: this.getPlotWidth(), height: this.getPlotHeight()}
             }
           );
       this.$.chart.render();
