@@ -127,6 +127,14 @@ trailing:true, white:true*/
       }
       this.$.chartTitle.setContent(this.makeTitle()); // Set the chart title
       this.$.chartSubTitle.setContent(this.getChartSubTitle()); // Set the chart sub title
+      //
+      //  See comments in core about the need to sort here
+      //
+      if (formattedData.length !== 0) {
+        var sortedFormattedData = _.sortBy(formattedData[0].values, 'Measure');
+        sortedFormattedData.reverse();
+        formattedData[0].values = sortedFormattedData;
+      }
       this.setProcessedData(formattedData); // This will drive processDataChanged which will call plot
     },
 

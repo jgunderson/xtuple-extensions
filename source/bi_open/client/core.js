@@ -124,6 +124,10 @@ trailing:true, white:true*/
    *
    *   Note we are given a dimension's level, but we want the children, so we
    *   go back up to the hierarchy and then get the children.
+   *   
+   *   Todo:  Mondrian has trouble ordering with count measures, like "Days, Start to Actual".
+   *   So we sort in processData as the list is small.  Try this out in later releases of Mondrian:
+   *   "ORDER({filter(TopCount($dimensionHier.Hierarchy.Children, 50, [Measures].[THESUM]),[Measures].[THESUM]>0) }, [Measures].[THESUM], DESC)
    */
   XT.mdxQueryTopList.prototype = _.extend(Object.create(XT.mdxQuery.prototype), {
       members: [
@@ -139,7 +143,7 @@ trailing:true, white:true*/
         "[Measures].[NAME]"
       ],
       rows: [
-        "ORDER({filter(TopCount($dimensionHier.Hierarchy.Children, 50, [Measures].[THESUM]),[Measures].[THESUM]>0) }, [Measures].[THESUM], DESC)"
+        "{filter(TopCount($dimensionHier.Hierarchy.Children, 50, [Measures].[THESUM]),[Measures].[THESUM]>0)}"
       ],
       cube: "",
       where: []
