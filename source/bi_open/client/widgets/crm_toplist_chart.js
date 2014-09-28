@@ -29,7 +29,7 @@ trailing:true, white:true*/
           {name: "number", operator: "MATCHES", value: ""},
         ]
         },
-        {dimension: "accountRep",
+        {dimension: "salesRep",
            attr: "number",
            recordType: "XM.SalesRepRelation",
            collection: "XM.SalesRepRelationCollection",
@@ -84,7 +84,7 @@ trailing:true, white:true*/
           {name: "number", operator: "MATCHES", value: ""},
         ]
         },
-        {dimension: "accountRep",
+        {dimension: "salesRep",
            attr: "number",
            recordType: "XM.SalesRepRelation",
            collection: "XM.SalesRepRelationCollection",
