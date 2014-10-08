@@ -27,6 +27,6 @@
   "scripts": {
     "test-build": "./node_modules/.bin/mocha -R spec test/build/build_app.js",
     "test": "./node_modules/.bin/mocha -R spec test/lib/test_runner.js",
-    "test-bi_open": "cd ../xtuple/node-datasource; ../node_modules/.bin/mocha -t 20000 -R spec ../../xtuple-extensions/test/routes/routebi/*"
+    "test-bi_open": "cd ../xtuple/node-datasource; ../node_modules/.bin/mocha -t 40000 -R spec ../../xtuple-extensions/test/routes/routebi/*"
   }
 }
