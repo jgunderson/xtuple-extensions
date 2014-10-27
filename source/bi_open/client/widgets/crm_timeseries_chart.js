@@ -112,8 +112,8 @@ trailing:true, white:true*/
        collection: "XM.OpportunityRelationCollection",
        workspace: "XM.OpportunityRelation",
        parameters: [
-        {name: "fromStartDate", operator: ">=", value: new Date()},
-        {name: "toStartDate", operator: "<=", value: new Date()},
+        {name: "fromTargetDate", operator: ">=", value: new Date()},
+        {name: "toTargetDate", operator: "<=", value: new Date()},
         {name: "showInactive", operator: "=", value: false}
       ],
      }
@@ -125,8 +125,8 @@ trailing:true, white:true*/
       { name: "areaChart" }
     ],
     measureColors : ['#ff7f0e', '#2ca02c'],
-    plotDimension1 : "[Issue Date.Calendar Months].[Year].[MEMBER_CAPTION]",
-    plotDimension2 : "[Issue Date.Calendar Months].[Month].[MEMBER_CAPTION]",
+    plotDimension1 : "[Target Date.Calendar Months].[Year].[MEMBER_CAPTION]",
+    plotDimension2 : "[Target Date.Calendar Months].[Month].[MEMBER_CAPTION]",
     chart : function (type) {
         switch (type) {
         case "barChart":
@@ -145,7 +145,21 @@ trailing:true, white:true*/
     queryTemplates: [
       _.extend(new XT.mdxQueryTimeSeries(),
         {cube: "CROpportunity",
-          where: [
+         members: [
+          {name: "[Measures].[KPI]",
+             value: "IIf(IsEmpty([Measures].[$measure]), 0.000, [Measures].[$measure])"
+          },
+          {name: "Measures.[prevKPI]",
+             value: "([Measures].[$measure] , ParallelPeriod([Target Date.Calendar Months].[$year]))"
+          },
+          {name: "[Measures].[prevYearKPI]",
+             value: "iif (Measures.[prevKPI] = 0 or Measures.[prevKPI] = NULL or IsEmpty(Measures.[prevKPI]), 0.000, Measures.[prevKPI])"
+          },
+        ],
+        rows: [
+          "LastPeriods(12, [Target Date.Calendar Months].[$year].[$month])"
+        ],
+         where: [
           {attribute: null,
             dimension: "[Opportunity.Opportunity by Status by Stage].[Opportunity Status]",
             operator: "=",
@@ -362,40 +376,40 @@ trailing:true, white:true*/
              value: "SUM({LASTPERIODS(12, [Issue Date.Calendar].[$year].[$month])}, [Measures].[Days, Start to Assigned])"
           },
           {name: "Measures.[measure-1]",
-             value: "iif(Measures.[m-1] = 0 or Measures.[m-1] = NULL or IsEmpty(Measures.[m-1]), 0.000, Measures.[m-1] )"
+             value: "iif(Measures.[m-1] = 0 or Measures.[m-1] = NULL or IsEmpty(Measures.[m-1]), 0.000, Measures.[m-1] / 12 )"
           },
           {name: "[Measures].[m-p-1]",
              value: "SUM({LASTPERIODS(12, ParallelPeriod([Issue Date.Calendar].[YEAR], 1, [Issue Date.Calendar].[$year].[$month]))}, " +
             "  [Measures].[Days, Start to Assigned])"
           },
           {name: "[Measures].[measure-prev-1]",
-             value: "iif(Measures.[m-p-1] = 0 or Measures.[m-p-1] = NULL or IsEmpty(Measures.[m-p-1]), 0.000, Measures.[m-p-1] )"
+             value: "iif(Measures.[m-p-1] = 0 or Measures.[m-p-1] = NULL or IsEmpty(Measures.[m-p-1]), 0.000, Measures.[m-p-1] / 12 )"
           },
           {name: "[Measures].[m-2]",
              value: "SUM({LASTPERIODS(12, [Issue Date.Calendar].[$year].[$month])}, [Measures].[Days, Start to Target])"
           },
           {name: "Measures.[measure-2]",
-             value: "iif(Measures.[m-2] = 0 or Measures.[m-2] = NULL or IsEmpty(Measures.[m-2]), 0.000, Measures.[m-2] )"
+             value: "iif(Measures.[m-2] = 0 or Measures.[m-2] = NULL or IsEmpty(Measures.[m-2]), 0.000, Measures.[m-2] / 12 )"
           },
           {name: "[Measures].[m-p-2]",
              value: "SUM({LASTPERIODS(12, ParallelPeriod([Issue Date.Calendar].[YEAR], 1, [Issue Date.Calendar].[$year].[$month]))}, " +
             "  [Measures].[Days, Start to Target]) "
           },
           {name: "[Measures].[measure-prev-2]",
-             value: "iif(Measures.[m-p-2] = 0 or Measures.[m-p-2] = NULL or IsEmpty(Measures.[m-p-2]), 0.000, Measures.[m-p-2] )"
+             value: "iif(Measures.[m-p-2] = 0 or Measures.[m-p-2] = NULL or IsEmpty(Measures.[m-p-2]), 0.000, Measures.[m-p-2] / 12 )"
           },
           {name: "[Measures].[m-3]",
              value: "SUM({LASTPERIODS(12, [Issue Date.Calendar].[$year].[$month])}, [Measures].[Days, Start to Actual])"
           },
           {name: "Measures.[measure-3]",
-             value: "iif(Measures.[m-3] = 0 or Measures.[m-3] = NULL or IsEmpty(Measures.[m-3]), 0.000, Measures.[m-3] )"
+             value: "iif(Measures.[m-3] = 0 or Measures.[m-3] = NULL or IsEmpty(Measures.[m-3]), 0.000, Measures.[m-3] / 12 )"
           },
           {name: "[Measures].[m-p-3]",
              value: "SUM({LASTPERIODS(12, ParallelPeriod([Issue Date.Calendar].[YEAR], 1, [Issue Date.Calendar].[$year].[$month]))}, " +
             "  [Measures].[Days, Start to Actual]) "
           },
           {name: "[Measures].[measure-prev-3]",
-             value: "iif(Measures.[m-p-3] = 0 or Measures.[m-p-3] = NULL or IsEmpty(Measures.[m-p-3]), 0.000, Measures.[m-p-3] )"
+             value: "iif(Measures.[m-p-3] = 0 or Measures.[m-p-3] = NULL or IsEmpty(Measures.[m-p-3]), 0.000, Measures.[m-p-3] / 12 )"
           },
         ],
         columns: [

@@ -28,18 +28,18 @@ Each npm package is defined by its `package.json` file. Look at code in the file
   "author": "xTuple <dev@xtuple.com>",
   "name": "xtuple-ice-cream",
   "description": "xTuple ice cream extension",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "dependencies": {
   },
   "peerDependencies": {
-    "xtuple": "*"
+    "xtuple": "^4.7.0"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/xtuple/xtuple-ice-cream"
+    "url": "http://github.com/xtuple/xtuple-extensions"
   },
   "engines": {
-    "node": "0.8.x"
+    "node": "0.10.x"
   }
 }
 ```
@@ -76,8 +76,8 @@ Let's say that some future version of the app (v4.30.0) forces or entices you to
 You'll need to
 
 - Write the new code
-- Bump the extension version appropriately in `package.json` (say, to `0.1.2`)
-- Change the `xtuple` `peerDependency` version from `"*"` to `"^4.30.0"`
+- Bump the extension version appropriately in `package.json` (say, to `0.2.0`)
+- Change the `xtuple` `peerDependency` version from `"^4.7.0"` to `"^4.30.0"`
 - `npm publish`
 
 Now there will be two usable versions of your extension, and npm will prefer to install the latest version for 

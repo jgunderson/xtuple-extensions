@@ -268,7 +268,7 @@ trailing:true, white:true*/
           return true;
         },
         /*
-         * Make end date based on settings of year and month and nextPeriods
+         * Make end date based on settings of year and month and nextPeriods 
          */
         getEndDate: function () {
           var date = new Date();
@@ -280,7 +280,7 @@ trailing:true, white:true*/
             date.setMonth(Number(this.getMonth()) + Number(this.getNextPeriods()) - 1);
           }
           else {
-            date.setMonth(Number(date.getMonth()) + Number(this.getNextPeriods()) - 1);
+            date.setMonth(Number(date.getMonth()) + Number(this.getNextPeriods()));
           }
           return date;
         },

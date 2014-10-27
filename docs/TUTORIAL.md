@@ -46,15 +46,7 @@ Enter the following code into your favorite text editor:
 [ [WHICH?] ](https://github.com/xtuple/xtuple/wiki/Setting-up-an-Ubuntu-Virtual-Machine#sublime-with-jshint-installed)
 
 ``` javascript
-do $$
-  /* Only create the schema if it hasn't been created already */
-  var res, sql = "select schema_name from information_schema.schemata where schema_name = 'ic'",
-  res = plv8.execute(sql);
-  if (!res.length) {
-    sql = "create schema ic; grant all on schema ic to group xtrole;"
-    plv8.execute(sql);
-  }
-$$ language plv8;
+select xt.create_schema('ic');
 ```
 
 Next, we'll define a table named `ic.icflav`, by entering the following code into the file `/path/to/xtuple-extensions/source/xtuple-ice-cream/database/source/icflav.sql`:
@@ -96,7 +88,7 @@ We can put these files together in our `manifest.js` file, which as a convention
 ```javascript
 {
   "name": "xtuple-ice-cream",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "comment": "Ice Cream extension",
   "loadOrder": 999,
   "dependencies": ["crm"],

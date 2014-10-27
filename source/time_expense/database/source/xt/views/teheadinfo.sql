@@ -19,7 +19,7 @@ $$, false);
 
 create or replace rule "_INSERT" as on insert to xt.teheadinfo do instead
 
-insert into tehead (
+insert into te.tehead (
   tehead_id,
   tehead_number,
   tehead_weekending,
@@ -43,7 +43,7 @@ insert into tehead (
 
 create or replace rule "_UPDATE" as on update to xt.teheadinfo do instead
 
-update tehead set
+update te.tehead set
   tehead_number = new.tehead_number,
   tehead_weekending = new.tehead_weekending,
   tehead_lastupdated = new.tehead_lastupdated,

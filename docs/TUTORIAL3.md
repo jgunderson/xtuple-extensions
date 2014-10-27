@@ -185,18 +185,4 @@ cd /path/to/xtuple-extensions
 
 We have set up TravisCI to run the entire test suite before any code gets committed into our master source. If you've set up TravisCI on your fork, then you can take advantage of the same tool merely by pushing your committed code to your repository. TravisCI will let you know if you've broken anything.
 
-### Declaring the Version Number
-
-One last thing we should do is to declare the version number for the client. We have already specified the version number in the database `manifest.js` file. We should do the something similar in the client so that users will know how up-to-date their extension code is. Update the file `/path/to/xtuple-extensions/source/xtuple-ice-cream/client/core.js` with the following:
-
-```javascript
-XT.extensions.icecream = {
-  setVersion: function () {
-    XT.setVersion("0.1.1", "xtuple-ice-cream");
-  }
-};
-```
-
-**Verify** your work by refreshing the browser, and selecting the `About` item from the gear menu. "Ice Cream 0.1.1" should display alongside your other extensions.
-
 Good work so far! You've been able to develop a custom extension. Deployability into a production environment is just a few steps away, as you'll see in [Part IV](TUTORIAL4.md) of the tutorial.

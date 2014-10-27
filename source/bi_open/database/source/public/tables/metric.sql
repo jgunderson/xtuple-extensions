@@ -1,0 +1,1 @@
+select setmetric('DashboardLite', 'f');
