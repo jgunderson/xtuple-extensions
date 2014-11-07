@@ -19,7 +19,7 @@ trailing:true, white:true*/
     kind: "XV.BiChart",
     published: {
       chartType: "barChart",
-      chartTag: "svg",
+      chartTag: "plotarea",
       maxHeight: 0,
       maxWidth: 0,
       measures: [],

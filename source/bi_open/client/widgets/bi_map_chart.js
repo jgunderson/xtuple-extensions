@@ -47,7 +47,7 @@ trailing:true, white:true*/
     published: {
       dateField: "",
       //endDate: new Date(),
-      chartTag: "svg",  //rgraph requires the html5 canvas tag
+      chartTag: "plotarea",  //rgraph requires the html5 canvas tag
       labels: [],
       updatedLabels: [],
       nextPeriods: 0, // number of periods to add to end date for forecasts
@@ -179,7 +179,7 @@ trailing:true, white:true*/
  * */
     plot: function (type) {
 
-      var divId = this.$.chart.$.svg.hasNode().id,
+      var divId = this.$.chart.$.plotarea.hasNode().id,
         chartId = this.$.chart.hasNode().id,
         that = this,
         shownLayer,
@@ -347,16 +347,16 @@ trailing:true, white:true*/
     */
     createChartComponent: function () {
       /*
-       * Maps are actually rendered in the chart and not the svg.  No idea why they
-       * won't render in the svg.  We can not create and recreate the chart, we must
+       * Maps are actually rendered in the chart and not the  plot area.  No idea why they
+       * won't render in the plotarea.  We can not create and recreate the chart, we must
        * use map.remove() to destroy the map.  We also have to careful to only render
-       * the chart once or the map.destroy() fails.  So we keep the svg to remember
+       * the chart once or the map.destroy() fails.  So we keep the  plot area to remember
        * we already rendered.
        */
 
-      if (typeof this.$.chart.$.svg === "undefined") {
+      if (typeof this.$.chart.$.plotarea === "undefined") {
         this.$.chart.createComponent(
-            {name: "svg",
+            {name: "plotarea",
               tag: this.getChartTag(),
               content: " "  //some plot areas must have content - like an html5 canvas
               }

@@ -19,7 +19,7 @@ trailing:true, white:true*/
     kind: "XV.BiChartNoPicker",
     published: {
       dateField: "",
-      chartTag: "svg",
+      chartTag: "plotarea",
       plotHeight: 0,
       nextPeriods: 0, // number of periods to add to end date for forecasts
       plotWidth: 0
@@ -177,10 +177,10 @@ trailing:true, white:true*/
        */
       if (this.getProcessedData().length > 0) {
         //
-        // Make dimple chart in svg area
+        // Make dimple chart in plot area
         //
-        var divId = this.$.chart.$.svg.hasNode().id,
-          // width and height in newSvg are max sizes
+        var divId = this.$.chart.$.plotarea.hasNode().id,
+          // width and height in new plotarea are max sizes
           svg = dimple.newSvg("#" + divId, this.getPlotWidth() + 100, this.getPlotHeight() + 100),
           myChart = new dimple.chart(svg, this.getProcessedData()[0].values);
         myChart.setBounds(180, 20, this.getPlotWidth() - 120, this.getPlotHeight());
@@ -233,11 +233,11 @@ trailing:true, white:true*/
       Create chart plot area.  Destroy if already created.
     */
     createChartComponent: function () {
-      if (typeof this.$.chart.$.svg !== "undefined") {
-        this.$.chart.$.svg.destroy();
+      if (typeof this.$.chart.$.plotarea !== "undefined") {
+        this.$.chart.$.plotarea.destroy();
       }
       this.$.chart.createComponent(
-          {name: "svg",
+          {name: "plotarea",
             tag: this.getChartTag(),
             content: " ",
             attributes: {width: 500, height: 250}

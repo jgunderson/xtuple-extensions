@@ -176,7 +176,7 @@ trailing:true, white:true*/
            
       /* rgraph Plot */
       if (this.getProcessedData().length > 0) {
-        var canvasId = this.$.chart.$.svg.hasNode().id,
+        var canvasId = this.$.chart.$.plotarea.hasNode().id,
           funnel = new RGraph.Funnel(canvasId, this.getProcessedData());
         
         funnel.Set('labels', this.getUpdatedLabels());
@@ -211,11 +211,11 @@ trailing:true, white:true*/
       Create chart plot area.  Destroy if already created.
     */
     createChartComponent: function () {
-      if (typeof this.$.chart.$.svg !== "undefined") {
-        this.$.chart.$.svg.destroy();
+      if (typeof this.$.chart.$.plotarea !== "undefined") {
+        this.$.chart.$.plotarea.destroy();
       }
       this.$.chart.createComponent(
-          {name: "svg",
+          {name: "plotarea",
             tag: this.getChartTag(),
             content: " ",
             attributes: {width: this.getPlotWidth(), height: this.getPlotHeight()}

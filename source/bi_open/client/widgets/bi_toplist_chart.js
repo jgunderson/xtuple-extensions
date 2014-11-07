@@ -176,7 +176,7 @@ trailing:true, white:true*/
          */
         if (drilldown) {
           // This seems to give code for the list item selected - no idea why
-          selected = this.$.chart.$.svg.$.toplist.$.code.content;
+          selected = this.$.chart.$.plotarea.$.toplist.$.code.content;
           params = drilldown.parameters;
           params[0].value = selected;
           listKind = XV.getList(drilldown.recordType);
@@ -195,7 +195,7 @@ trailing:true, white:true*/
     },
 
     plot: function (type) {
-      var list = this.$.chart.$.svg.createComponent(
+      var list = this.$.chart.$.plotarea.createComponent(
             {name: "toplist",
               kind: "XV.Toplist"
             }
@@ -209,14 +209,14 @@ trailing:true, white:true*/
     },
 
     setupItem: function (inSender, inEvent) {
-      this.$.chart.$.svg.$.toplist.$.code.setContent(this.getProcessedData()[0].values[inEvent.index].Code);
-      this.$.chart.$.svg.$.toplist.$.name.setContent(this.getProcessedData()[0].values[inEvent.index].Name);
-      this.$.chart.$.svg.$.toplist.$.measure.setContent(this.getProcessedData()[0].values[inEvent.index].Measure);
+      this.$.chart.$.plotarea.$.toplist.$.code.setContent(this.getProcessedData()[0].values[inEvent.index].Code);
+      this.$.chart.$.plotarea.$.toplist.$.name.setContent(this.getProcessedData()[0].values[inEvent.index].Name);
+      this.$.chart.$.plotarea.$.toplist.$.measure.setContent(this.getProcessedData()[0].values[inEvent.index].Measure);
     },
 
     itemTap: function (inSender, inEvent) {
       var row = inEvent.index;
-      var selected = this.$.chart.$.svg.$.toplist.getSelection().getSelected();
+      var selected = this.$.chart.$.plotarea.$.toplist.getSelection().getSelected();
     },
 
     /**
@@ -230,11 +230,11 @@ trailing:true, white:true*/
       Create chart plot area.  Destroy if already created.
     */
     createChartComponent: function () {
-      if (typeof this.$.chart.$.svg !== "undefined") {
-        this.$.chart.$.svg.destroy();
+      if (typeof this.$.chart.$.plotarea !== "undefined") {
+        this.$.chart.$.plotarea.destroy();
       }
       this.$.chart.createComponent(
-          {name: "svg",
+          {name: "plotarea",
             tag: this.getChartTag(),
             content: " ",
             attributes: {width: this.getPlotWidth(), height: this.getPlotHeight()}

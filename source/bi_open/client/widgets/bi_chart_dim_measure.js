@@ -19,7 +19,7 @@ trailing:true, white:true*/
     name: "XV.BiChartDimMeasure",
     kind: "XV.BiChart",
     published: {
-      chartTag: "svg",
+      chartTag: "plotarea",
       dimensions: [],
       maxHeight: 0,
       maxWidth: 0,
