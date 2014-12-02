@@ -62,6 +62,7 @@ strict:true, trailing:true, white:true */
     "_opportunitiesActiveMapTrailing": "Active Opportunities City Map",
     "_opportunitiesTrailing": "Opportunities",
     "_opportunitiesBookingsTrailing": "Opportunity Conversion",
+    "_opportunitiesStateMapTrailing": "Opportunities State Map",
     "_percentForecastProbability": "Forecast Probability",
     "_percentOpportunityForecastProbability": "Opportunity Forecast Probability",
     "_percentProbabilityOpportunity": "Opportunity Probability",

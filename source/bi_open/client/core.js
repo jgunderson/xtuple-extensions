@@ -44,6 +44,11 @@ trailing:true, white:true*/
      * Map Periods Query
      */
     mdxQueryMapPeriods: function () {
+    },
+    /*
+     * State Map Periods Query
+     */
+    mdxQueryStateMapPeriods: function () {
     }
 
   });
@@ -188,6 +193,22 @@ trailing:true, white:true*/
       ],
       columns: [
         "[Measures].[Latitude]", "[Measures].[Longitude]", "[Measures].[TheSum]",
+      ],
+      rows: [
+        "CrossJoin($dimensionGeo.Members, $dimensionHier.Members)"
+      ],
+      cube: "",
+      where: []
+    });
+  
+  XT.mdxQueryStateMapPeriods.prototype = _.extend(Object.create(XT.mdxQuery.prototype), {
+      members: [
+        {name: "[Measures].[TheSum]",
+           value: 'SUM({LASTPERIODS(12, [Issue Date.Calendar].[$year].[$month])}, [Measures].[$measure])'
+        }
+      ],
+      columns: [
+        "[Measures].[TheSum]"
       ],
       rows: [
         "CrossJoin($dimensionGeo.Members, $dimensionHier.Members)"

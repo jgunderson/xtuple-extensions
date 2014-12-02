@@ -7,6 +7,7 @@ enyo.depends(
   "bi_comparetimesum_chart.js",
   "bi_funnel_chart.js",
   "bi_map_chart.js",
+  "bi_map_state_chart.js",
   "bi_timeseries_chart.js",
   "bi_toplist_chart.js",
   "crm_funnel_chart.js",

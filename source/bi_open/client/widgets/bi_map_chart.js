@@ -15,25 +15,24 @@ trailing:true, white:true*/
 
       Input format:
       [
-        {"[Account Rep.Account Reps by Code].[Account Rep Code].[MEMBER_CAPTION]":"2000",
-         "[Ship City].[Country Name].[MEMBER_CAPTION]":"AUSTRIA",
-         "[Ship City].[Region Code].[MEMBER_CAPTION]":"AT-AUSTRIA",
-         "[Ship City].[City Name].[MEMBER_CAPTION]":"Vienna",
+        {"[Bill City].[Country Name].[MEMBER_CAPTION]":"AUSTRIA",
+         "[Bill City].[Region Code].[MEMBER_CAPTION]":"AT-AUSTRIA",
+         "[Bill City].[City Name].[MEMBER_CAPTION]":"Vienna",
+         "[Customer.Customer Code].[Customer Code].[MEMBER_CAPTION]":"VCOL",
          "[Measures].[Latitude]":"42.12",
          "[Measures].[Longitude]":"16.22",
-         "[Measures].[TheSum]":"207115.00"}
-         },
+         "[Measures].[TheSum]":"824647.1"},
       ]
       Output format:
       [
         {
           "values": [
           {
-            "dimension": "2000",
+            "dimension": "VCOL",
             "geoDimension": "Vienna",
             "latitude": "42.12",
             "longitude": "16.22",
-            "measure": ""207115.00"
+            "measure": "824647.1"
           },
          ]
         }
@@ -193,8 +192,8 @@ trailing:true, white:true*/
         markerSum,
         measure = this.schema.getMeasureName(this.getCube(), this.getMeasure());
 
-        L.Icon.Default.imagePath = XT.getBaseUrl() + XT.getOrganizationPath() +
-          '/xtuple-extensions/source/bi_open/client/lib/leaflet/dist/images';		
+      L.Icon.Default.imagePath = XT.getBaseUrl() + XT.getOrganizationPath() +
+        '/xtuple-extensions/source/bi_open/client/lib/leaflet/dist/images';
 
       function removePolygon() {
         if (shownLayer) {

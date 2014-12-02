@@ -203,5 +203,43 @@ trailing:true, white:true*/
       }),
     ],
   });
+  
+  enyo.kind({
+    name: "XV.Period12OpportunitiesStateMapChart",
+    kind: "XV.BiMapStateChart",
+    collection: "XM.AnalyticCollection",
+    // Chart properties
+    chartTitle: "_trailing12".loc(),
+    geoDimension: "[Contact City].[Region Code]",
+    dimensionHier: "[CRM Account.CRM Accounts by Code].[CRM Account Code]",
+    /*
+     * Dates are updated in clickDrill function.  They are repeated in some parameters as some
+     * queries need four dates (and it doesn't hurt to repeat)
+     */
+    drillDown: [
+      {attr: "number",
+       recordType: "XM.OpportunityRelation",
+       collection: "XM.OpportunityRelationCollection",
+       workspace: "XM.OpportunityRelation",
+       parameters: [
+        {name: "fromStartDate", operator: ">=", value: new Date()},
+        {name: "toStartDate", operator: "<=", value: new Date()},
+        {name: "showInactive", operator: "=", value: true}
+      ],
+     }
+    ],
+    chartOptions: [
+      { name: "HERE.normalDay" },
+      { name: "OpenStreetMap.Mapnik" },
+      { name: "OpenMapSurfer.Roads" },
+      { name: "MapQuestOpen.OSM" }
+    ],
+    // Query properties
+    cube : "CROpportunity",
+    schema: new XM.CRMMetadata(),
+    queryTemplates: [
+      _.extend(new XT.mdxQueryStateMapPeriods(), {cube: "CROpportunity"}),
+    ],
+  });
 
 }());

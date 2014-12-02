@@ -50,6 +50,7 @@ XT.extensions.bi_open.initPostbooks = function () {
          * CRM maps
          */
         {name: "opportunitiesMapTrailing", label: "_opportunitiesMapTrailing".loc(), item: "XV.Period12OpportunitiesMapChart", privileges: ["ViewAllOpportunities"]},
+        {name: "opportunitiesStateMapTrailing", label: "_opportunitiesStateMapTrailing".loc(), item: "XV.Period12OpportunitiesStateMapChart", privileges: ["ViewAllOpportunities"]},
         {name: "opportunitiesActiveMapTrailing", label: "_opportunitiesActiveMapTrailing".loc(), item: "XV.Period12OpportunitiesActiveMapChart", privileges: ["ViewAllOpportunities"]},
         {name: "quotesMapTrailing", label: "_quotesMapTrailing".loc(), item: "XV.Period12QuotesMapChart", privileges: ["ViewQuotes"]},
         {name: "quotesActiveMapTrailing", label: "_quotesActiveMapTrailing".loc(), item: "XV.Period12QuotesActiveMapChart", privileges: ["ViewQuotes"]}
